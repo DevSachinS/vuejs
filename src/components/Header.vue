@@ -1,7 +1,7 @@
 <template>
 <div class="headerStyle">
     <router-link to="/" class="navlinks">Home</router-link>
-    <router-link to="/add" class="navlinks">Add Resturant</router-link>
+    <router-link to="/add" class="navlinks">Todo App</router-link>
     <a href="#"  v-on:click="logout" class="navlinks">Logout</a>
 </div>
 

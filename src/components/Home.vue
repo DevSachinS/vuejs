@@ -4,9 +4,13 @@
   <div class="cards">
     <div v-for="items in resturant" :key="items.id" class="card card-1">
     
-      <div class="card__icon">  <div id="workingAnimation">
+      <div class="card__icon">  <div v-if="items.open" class="greendot">
 	<span></span>
-</div></div>
+</div>
+<div v-else class="reddot">
+	<span></span>
+</div>
+</div>
       <p class="card__exit"></p>
       <h2 class="card__title">{{items.name}}</h2>
       <p class="card__apply">
@@ -35,10 +39,10 @@ export default {
       }
   },
  async mounted() {
-      let user=localStorage.getItem("user-info")
-      if (!user){
-          this.$router.push({name:"SignUpPage"})
-      }
+      // let user=localStorage.getItem("user-info")
+      // if (!user){
+      //     this.$router.push({name:"SignUpPage"})
+      // }
 
       let result = await axios.get("http://localhost:3000/resturant")
       this.resturant=result.data
@@ -133,7 +137,7 @@ export default {
    text-decoration: none;
  }
 
- #workingAnimation span {
+ .greendot span {
    display:inline-block;
 	background-color: #ccc;
 	border-radius: 50%;
@@ -145,7 +149,7 @@ export default {
 	animation-iteration-count: infinite;
 	animation-fill-mode: both;
 }
-#workingAnimation span {
+.greendot span {
 	animation-delay: 0.7s;
 }
 @keyframes blink {
@@ -153,8 +157,38 @@ export default {
 		background-color: rgba(195,205,213,0.2);
 	}
 	20% {
-		background-color: rgb(5, 117, 48);
+		background-color: green;
 		transform: scale(1.2);
+    box-shadow: 0 0 8px 0 green;
+	}
+	100% {
+		background-color: rgba(195,205,213,0.2);
+	}
+}
+
+.reddot span {
+   display:inline-block;
+	background-color: #ccc;
+	border-radius: 50%;
+	width: 10px;
+	height: 10px;
+	margin-right: 7px;
+  animation-name: redblink;
+	animation-duration: 1s;
+	animation-iteration-count: infinite;
+	animation-fill-mode: both;
+}
+.reddot span {
+	animation-delay: 0.7s;
+}
+@keyframes redblink {
+	0% {
+		background-color: rgba(195,205,213,0.2);
+	}
+	20% {
+		background-color: red;
+		transform: scale(1.2);
+        box-shadow: 0 0 8px 0 red;
 	}
 	100% {
 		background-color: rgba(195,205,213,0.2);
